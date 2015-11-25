@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,8 +42,8 @@ public class MainActivity extends AppCompatActivity {
 
         WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);
         String ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
-        TextView ipText = (TextView) findViewById(R.id.ipText);
-        ipText.setText("http://"+ip+":"+ServerBee.SERVER_PORT);
+        //TextView ipText = (TextView) findViewById(R.id.ipText);
+        //ipText.setText("http://"+ip+":"+ServerBee.SERVER_PORT);
 
         server = new ServerBee();
         server.addListenner(new ServerBee.Listener() {
@@ -54,73 +55,61 @@ public class MainActivity extends AppCompatActivity {
         server.start();
 
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        if(!BluetoothConnector.isEnabled()){
+            Snackbar.make(this.getCurrentFocus() , "BT is OFF", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            return;
+        }
+
+
+
+        final ListView lv = (ListView) findViewById(R.id.btDevices);
+        lv.setVisibility(View.VISIBLE);
+        final Set<BluetoothDevice> devices = BluetoothConnector.getDeviceList();
+        final ArrayList<String> values = new ArrayList<>();
+        for(BluetoothDevice device : devices){
+            values.add(device.getName());
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_list_item_1, android.R.id.text1, values);
+        lv.setAdapter(adapter);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
             @Override
-            public void onClick(View view) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // ListView Clicked item index
+                int itemPosition = position;
+                // ListView Clicked item value
+                String itemValue = (String) lv.getItemAtPosition(position);
 
+                // Show Alert
+                Toast.makeText(getApplicationContext(), "Sending : " + itemValue, Toast.LENGTH_LONG).show();
+                Log.d("SEND BT", values.get(itemPosition));
 
-                //dispatchTakeVideoIntent();
-                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-            }
-        });
-
-        FloatingActionButton btd = (FloatingActionButton) findViewById(R.id.btButton);
-        btd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if(!BluetoothConnector.isEnabled()){
-                    Snackbar.make(view, "BT is OFF", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                    return;
-                }
-
-
-
-                final ListView lv = (ListView) findViewById(R.id.btDevices);
-                lv.setVisibility(View.VISIBLE);
-                final Set<BluetoothDevice> devices = BluetoothConnector.getDeviceList();
-                final ArrayList<String> values = new ArrayList<>();
-                for(BluetoothDevice device : devices){
-                    values.add(device.getName());
-                }
-
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_list_item_1, android.R.id.text1, values);
-                lv.setAdapter(adapter);
-                lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        // ListView Clicked item index
-                        int itemPosition = position;
-                        // ListView Clicked item value
-                        String itemValue = (String) lv.getItemAtPosition(position);
-
-                        // Show Alert
-                        Toast.makeText(getApplicationContext(), "Sending : " + itemValue, Toast.LENGTH_LONG).show();
-                        Log.d("SEND BT", values.get(itemPosition));
-
-                        for(BluetoothDevice device : devices){
-                            if(device.getName().equals(values.get(itemPosition))){
-                                BluetoothConnector.getInstance(device.getName()).connect();
-                            }
-                        }
-                        SharedPreferences settings = getSharedPreferences("localStorage", 0);
-
-                        SharedPreferences.Editor editor = settings.edit();
-                        editor.putString("bt_device", values.get(itemPosition));
-                        editor.commit();
-
-                        lv.setVisibility(View.INVISIBLE);
-                        TextView btTV = (TextView) findViewById(R.id.textView2);
-                        btTV.setText(values.get(itemPosition));
-
+                for (BluetoothDevice device : devices) {
+                    if (device.getName().equals(values.get(itemPosition))) {
+                        BluetoothConnector.getInstance(device.getName()).connect();
                     }
-                });
+                }
+                SharedPreferences settings = getSharedPreferences("localStorage", 0);
+
+                SharedPreferences.Editor editor = settings.edit();
+                editor.putString("bt_device", values.get(itemPosition));
+                editor.commit();
+
+                (findViewById(R.id.btDeviceSelector)).setVisibility(View.GONE);
+                //TextView btTV = (TextView) findViewById(R.id.textView2);
+                //btTV.setText(values.get(itemPosition));
 
             }
         });
 
+
+
+    }
+
+    public void sendBT(View v){
+        String t = ((Button)v).getText().toString();
+        BluetoothConnector.getInstance("").sendMessage(t);
     }
 
     private void dispatchTakeVideoIntent() {
