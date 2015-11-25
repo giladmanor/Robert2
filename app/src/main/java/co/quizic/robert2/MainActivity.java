@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -97,6 +98,9 @@ public class MainActivity extends AppCompatActivity {
                 editor.commit();
 
                 (findViewById(R.id.btDeviceSelector)).setVisibility(View.GONE);
+                (findViewById(R.id.commandPane)).setVisibility(View.VISIBLE);
+
+
                 //TextView btTV = (TextView) findViewById(R.id.textView2);
                 //btTV.setText(values.get(itemPosition));
 
@@ -107,10 +111,27 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void sendBT(View v){
+    public void addCommand(View v){
         String t = ((Button)v).getText().toString();
-        BluetoothConnector.getInstance("").sendMessage(t);
+        LinearLayout ll = (LinearLayout) findViewById(R.id.commandList);
+        TextView tv = new TextView(this);
+
+        tv.setText(t);
+        ll.addView(tv);
+
     }
+
+
+    public void sendBT(View v){
+
+        LinearLayout ll = (LinearLayout) findViewById(R.id.commandList);
+        for(int i=0;i<ll.getChildCount();i++){
+            String t = ((TextView)ll.getChildAt(i)).getText().toString();
+            BluetoothConnector.getInstance("").sendMessage(t);
+        }
+
+    }
+
 
     private void dispatchTakeVideoIntent() {
         Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
