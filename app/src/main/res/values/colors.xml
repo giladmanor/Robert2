@@ -10,4 +10,6 @@
     <color name="colorE">#51c1c6</color>
     <color name="colorBright">#ffffff</color>
     <color name="colorLessBright">#3a3a3a</color>
+
+    <color name="black_overlay">#66000000</color>
 </resources>

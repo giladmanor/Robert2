@@ -97,8 +97,11 @@ public class MainActivity extends AppCompatActivity {
                 editor.putString("bt_device", values.get(itemPosition));
                 editor.commit();
 
-                (findViewById(R.id.btDeviceSelector)).setVisibility(View.GONE);
-                (findViewById(R.id.commandPane)).setVisibility(View.VISIBLE);
+                //(findViewById(R.id.btDeviceSelector)).setVisibility(View.GONE);
+
+
+                Intent intent = new Intent(getApplicationContext(),CommanderActivity.class);
+                startActivity(intent);
 
 
                 //TextView btTV = (TextView) findViewById(R.id.textView2);
@@ -111,26 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void addCommand(View v){
-        String t = ((Button)v).getText().toString();
-        LinearLayout ll = (LinearLayout) findViewById(R.id.commandList);
-        TextView tv = new TextView(this);
 
-        tv.setText(t);
-        ll.addView(tv);
-
-    }
-
-
-    public void sendBT(View v){
-
-        LinearLayout ll = (LinearLayout) findViewById(R.id.commandList);
-        for(int i=0;i<ll.getChildCount();i++){
-            String t = ((TextView)ll.getChildAt(i)).getText().toString();
-            BluetoothConnector.getInstance("").sendMessage(t);
-        }
-
-    }
 
 
     private void dispatchTakeVideoIntent() {
