@@ -92,14 +92,17 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="right">
+            android:layout_gravity="right"
+            android:weightSum="1"
+            android:background="@color/colorB">
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:gravity="center_horizontal">
+                android:gravity="center_horizontal"
+                android:background="@color/colorC">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -108,13 +111,22 @@
                     android:text="Sequence"
                     android:id="@+id/textView3"
                     android:layout_gravity="center_vertical" />
+
             </LinearLayout>
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:ems="10"
+                android:id="@+id/editText" />
 
             <LinearLayout
                 android:orientation="vertical"
-                android:layout_width="262dp"
-                android:layout_height="351dp"
-                android:background="@color/colorB"
+                android:layout_width="match_parent"
+                android:layout_height="164dp"
+                android:background="@color/colorLessBright"
                 android:id="@+id/commandList"
                 android:gravity="center_horizontal">
 
