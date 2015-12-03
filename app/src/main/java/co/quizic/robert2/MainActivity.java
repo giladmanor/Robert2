@@ -46,22 +46,17 @@ public class MainActivity extends AppCompatActivity {
         //TextView ipText = (TextView) findViewById(R.id.ipText);
         //ipText.setText("http://"+ip+":"+ServerBee.SERVER_PORT);
 
-        server = new ServerBee();
-        server.addListenner(new ServerBee.Listener() {
-            @Override
-            public void read(String s) {
 
-            }
-        });
-        server.start();
+        if (!BluetoothConnector.isEnabled()) {
+            Snackbar.make((findViewById(R.id.imageView)), "BT is OFF", Snackbar.LENGTH_LONG).setAction("Action", null).show();
 
-
-        if(!BluetoothConnector.isEnabled()){
-            Snackbar.make(this.getCurrentFocus() , "BT is OFF", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-            return;
+        } else {
+            initBT((findViewById(R.id.imageView)));
         }
 
+    }
 
+    public void initBT(View v){
 
         final ListView lv = (ListView) findViewById(R.id.btDevices);
         lv.setVisibility(View.VISIBLE);

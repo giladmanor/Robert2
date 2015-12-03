@@ -33,46 +33,40 @@
                 android:id="@+id/textView2" />
 
             <Button
-                android:layout_width="50dp"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="A"
+                android:text="forward"
                 android:id="@+id/button"
                 android:layout_row="0"
                 android:layout_column="0"
                 android:onClick="addCommand"/>
 
             <Button
-                android:layout_width="50dp"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="B"
+                android:text="back"
                 android:id="@+id/button3"
                 android:layout_row="0"
                 android:layout_column="1" android:onClick="addCommand"/>
 
             <Button
-                android:layout_width="50dp"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="C"
+                android:text="right"
                 android:id="@+id/button2"
                 android:layout_row="0"
                 android:layout_column="2" android:onClick="addCommand" />
 
             <Button
-                android:layout_width="50dp"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="D"
+                android:text="left"
                 android:id="@+id/button4"
                 android:layout_row="0"
                 android:layout_column="3"
                 android:onClick="addCommand"/>
 
-            <Button
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:text="E"
-                android:id="@+id/button5"
-                android:layout_row="0"
-                android:layout_column="4" android:onClick="addCommand"/>
+
 
             <Space
                 android:layout_width="match_parent"
@@ -117,9 +111,9 @@
 
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="224dp"
                 android:inputType="textMultiLine"
-                android:ems="10"
+                android:ems="20"
                 android:id="@+id/editText" />
 
             <LinearLayout
