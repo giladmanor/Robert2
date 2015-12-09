@@ -31,9 +31,6 @@ void loop() // run over and over
 
   if (mySerial.available()) {
     val = mySerial.read();
-    for (int i = inputShift; i < inputShift + 4; i++) {
-      digitalWrite(i, LOW);
-    }
     mySerial.println(val - 65);
     open(val);
   } else {
