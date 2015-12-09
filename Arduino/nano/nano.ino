@@ -1,3 +1,4 @@
+#include <Servo.h>
 #include <SoftwareSerial.h>
 char val;
 int v;
@@ -16,7 +17,6 @@ void setup()
   mySerial.println("Hello, world?");
   for (int i = 0; i <= sizeof(outputs); i++) {
     pinMode(outputs[i], OUTPUT);
-    digitalWrite(outputs[i], HIGH);
   }
 }
 
@@ -24,9 +24,8 @@ void loop() // run over and over
 {
   delay(500);
   states = "";
-  for (int i = 0; i < 8; i++) {
+  for (int i = 0; i <= sizeof(analog_pins); i++) {
     states += digitalRead(analog_pins[i]);
-
   }
   mySerial.println(states + "#");
 
@@ -42,8 +41,8 @@ void loop() // run over and over
   }
 }
 
-void open(char val) {
-  digitalWrite(val - 65 + inputShift, HIGH);
-  delay(1000);
-  digitalWrite(val - 65 + inputShift, LOW);
+void open(char val){
+  digitalWrite(outputs[val-65], HIGH);
+  delay(500);
+  digitalWrite(outputs[val-65], LOW);
 }
