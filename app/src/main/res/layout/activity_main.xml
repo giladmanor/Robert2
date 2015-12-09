@@ -13,7 +13,8 @@
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:background="@color/colorD">
+        android:background="@color/colorD"
+        android:weightSum="1">
 
         <LinearLayout
             android:orientation="vertical"
@@ -49,12 +50,13 @@
         </LinearLayout>
 
         <ImageView
-            android:layout_width="142dp"
+            android:layout_width="267dp"
             android:layout_height="144dp"
             android:id="@+id/imageView"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/r2d2"
-            android:onClick="initBT"/>
+            android:src="@drawable/robert"
+            android:onClick="initBT"
+            android:layout_weight="0.52" />
 
 
 
