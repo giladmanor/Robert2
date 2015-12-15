@@ -2,7 +2,12 @@
 #include <SoftwareSerial.h>
 char val;
 int v;
-static const int outputs[] = {4, 5, 6, 7, 8, 9, 10, 11};
+static const int movement[] = {4, 5, 6, 7};
+static const int servo1 = 8;
+static const int servo2 = 9;
+static const int servo3 = 10;
+
+
 static const uint8_t analog_pins[] = {A0, A1, A2, A3, A4, A5, A6, A7};
 String states = "";
 
@@ -31,15 +36,40 @@ void loop() // run over and over
 
   if (mySerial.available()) {
     val = mySerial.read();
-    mySerial.println(val - 65);
-    open(val);
+
+    move(val);
   } else {
     val = -1;
   }
 }
 
-void open(char val){
-  digitalWrite(outputs[val-65], HIGH);
+void move(char val) {
+  switch (val) {
+    case 'a':    // your hand is on the sensor
+      digitalWrite(movement[0], HIGH);
+      digitalWrite(movement[2], HIGH);
+
+      break;
+    case 'c':    // your hand is close to the sensor
+      digitalWrite(movement[0], HIGH);
+      digitalWrite(movement[3], HIGH);
+
+      break;
+    case 'b':    // your hand is a few inches from the sensor
+      digitalWrite(movement[1], HIGH);
+      digitalWrite(movement[3], HIGH);
+
+      break;
+    case 'd':    // your hand is nowhere near the sensor
+
+      digitalWrite(movement[1], HIGH);
+      digitalWrite(movement[2], HIGH);
+      break;
+  }
+}
+
+void open(char val) {
+  digitalWrite(outputs[val - 65], HIGH);
   delay(500);
-  digitalWrite(outputs[val-65], LOW);
+  digitalWrite(outputs[val - 65], LOW);
 }
