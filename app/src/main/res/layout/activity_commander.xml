@@ -37,7 +37,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="Commands"
+                    android:text="Movement"
                     android:id="@+id/textView2"
                     android:layout_gravity="center_horizontal" />
 
@@ -89,6 +89,29 @@
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="103dp"
+                android:layout_gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Arm"
+                    android:id="@+id/textView4"
+                    android:layout_gravity="center_horizontal" />
+
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="bend"
+                    android:id="@+id/button5"
+                    android:layout_gravity="center_horizontal" />
+            </LinearLayout>
 
             <LinearLayout
                 android:orientation="vertical"

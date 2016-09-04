@@ -20,8 +20,8 @@ void setup()
   // set the data rate for the SoftwareSerial port
   mySerial.begin(9600);
   mySerial.println("Hello, world?");
-  for (int i = 0; i <= sizeof(outputs); i++) {
-    pinMode(outputs[i], OUTPUT);
+  for (int i = 0; i <= sizeof(movement); i++) {
+    pinMode(movement[i], OUTPUT);
   }
 }
 
@@ -35,13 +35,25 @@ void loop() // run over and over
   mySerial.println(states + "#");
 
   if (mySerial.available()) {
-    val = mySerial.read();
+    
 
     move(val);
   } else {
     val = -1;
   }
 }
+
+int readCommand(SoftwareSerial mySerial){
+  char val;
+  boolean goon = true;
+  while(mySerial.available() && goon){
+    val = mySerial.read();
+    
+  }
+
+  return 0;
+}
+
 
 void move(char val) {
   switch (val) {
@@ -68,8 +80,4 @@ void move(char val) {
   }
 }
 
-void open(char val) {
-  digitalWrite(outputs[val - 65], HIGH);
-  delay(500);
-  digitalWrite(outputs[val - 65], LOW);
-}
+
